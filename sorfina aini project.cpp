@@ -20,6 +20,8 @@ struct Menu
 void orderMenu(Menu [], Menu[], Menu [], Menu [], int&,int &);
 void displayOrder(int ,int, Menu[], Menu[] );
 void editOrder(Menu [], Menu[], Menu [], Menu [], int &, int &);
+void paymentMethod(int ) ;
+double calcPrice(int ,int ,Menu [], Menu []);
 
 
 int main ()
@@ -32,8 +34,7 @@ int main ()
 	void read_menu(Menu [], Menu[],ifstream& , ifstream&);
 	ifstream menuCake, menuBeverage;
 	
-	
-	int numC=0,numB=0;
+	int numC=0,numB=0, payMethod;
 	char edit;
 	
 	read_menu(cake,beverage,  menuBeverage, menuCake);
@@ -49,9 +50,27 @@ int main ()
 	if (edit=='Y')
 		editOrder(cake, beverage, orderCake, orderBeverage, numC, numB);
 
-	displayOrder(numB,numC,orderCake,orderBeverage);
+	//displayOrder(numB,numC,orderCake,orderBeverage);
+	double amount = calcPrice(numB,numC, orderCake, orderBeverage);
+    displayOrder(numB,numC,orderCake,orderBeverage);
+    
+    cout<<"The amount that you need to pay is RM"<<amount;
+    
+	do{
+		
+   		cout << "Enter preferrable payment method:\n";
+  	  	cout << "1-Cash, 2-Card: ";
+  	  	cin >> payMethod;
 
+   	 	paymentMethod(payMethod);
+    
+  	}while(payMethod != 1 && payMethod != 2);
+    
 
+    
+    cout << "\n  ===>THANK YOU<===\n";
+  	cout << "  Item Ordered Successfully ! \n\n";
+    
 	return 0;
 }
 
@@ -70,20 +89,24 @@ void read_menu(Menu cake[], Menu beverage[], ifstream &menuBeverage, ifstream &m
 	{
 		for (int i=0;i<CAKE_ROWS;i++)
 		{
+		
 			getline(menuCake,cake[i].name,':');
 			menuCake>>cake[i].price;
 		}
 	
 		for (int i=0;i<BEV_ROWS;i++)
 		{
+		
 			getline(menuBeverage,beverage[i].name,':');
 			menuBeverage>>beverage[i].price;
+		
 		}
 	
 	}
 	menuCake.close();
 	menuBeverage.close();
 }
+
 
 
 void orderMenu (Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[],int &numC,int &numB )
@@ -97,6 +120,8 @@ void orderMenu (Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[],int &
 	
 	if(answer=='Y')
 	{
+	
+		
 		for (int i=0;answer=='Y';i++)
 		{
 			cout<<"Please select number of drinks:";
@@ -137,7 +162,6 @@ void orderMenu (Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[],int &
 				numC++;
 			}
 		}
-	
 }
 
 void displayOrder(int numB,int numC, Menu orderC[], Menu orderB[])
@@ -249,7 +273,63 @@ void editOrder(Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[], int &
 	
 }
 
+void paymentMethod(int payment) 
+{
 
+	int i=0;
+	int cardNo[100];
+	float cardmoney[100];
+	double tp, temp=0, totalmoney=0;
+	
+  	//Cash payment option
+  	if (payment == 1) 
+	{
 
+   		temp += tp;
+   		totalmoney += temp ;
+  		
+  	}
+  	
+  	///Credit/Debit Card Option
+  	else if (payment == 2) 
+	{
+   	 	int card_number[100];
+    	++i;
+    
+   	 	cout << "Enter Your Card No : ";
+    	cin >> card_number[i];
+    
+    	cardNo[i] = card_number[i];
+		cardmoney[i] = cardNo[i];
 
+    	int pin;
+    	cout << "Enter Your Card Pin [we would never save your pin]  : ";
+    	cin >> pin;
+    	fflush(stdin);
+    
+    	temp += tp;
+    	totalmoney += temp ;
+
+ 	}
+}
+
+double calcPrice(int numB,int numC, Menu orderC[], Menu orderB[])
+{
+	const double TAX=0.06;
+	const double DELIVERY=5.00;
+	double totalPrice_excTax=0;
+	double totalPrice,totalPriceBeverage=0,totalPriceCake=0;
+
+	for(int i=0;i<(numB+numC);i++)
+	{
+		
+		totalPriceBeverage+=(orderB[i].price*orderB[i].qty);
+		totalPriceCake+=(orderC[i].price*orderC[i].qty);
+		
+		totalPrice_excTax=(totalPriceBeverage+totalPriceCake)*TAX;
+		totalPrice=totalPriceBeverage+totalPriceCake+totalPrice_excTax;
+	}
+	
+	return totalPrice;
+}
 
