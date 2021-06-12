@@ -70,24 +70,20 @@ void read_menu(Menu cake[], Menu beverage[], ifstream &menuBeverage, ifstream &m
 	{
 		for (int i=0;i<CAKE_ROWS;i++)
 		{
-		
 			getline(menuCake,cake[i].name,':');
 			menuCake>>cake[i].price;
 		}
 	
 		for (int i=0;i<BEV_ROWS;i++)
 		{
-		
 			getline(menuBeverage,beverage[i].name,':');
 			menuBeverage>>beverage[i].price;
-		
 		}
 	
 	}
 	menuCake.close();
 	menuBeverage.close();
 }
-
 
 
 void orderMenu (Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[],int &numC,int &numB )
@@ -101,8 +97,6 @@ void orderMenu (Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[],int &
 	
 	if(answer=='Y')
 	{
-	
-		
 		for (int i=0;answer=='Y';i++)
 		{
 			cout<<"Please select number of drinks:";
@@ -119,8 +113,6 @@ void orderMenu (Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[],int &
 			numB++;
 		}
 	}
-	
-	
 	
 		cout<<"\n\tORDER FOR CAKE"<<endl;
 		cout<<"Do you want to order cake? Y-yes N-no: ";
@@ -175,9 +167,6 @@ void displayOrder(int numB,int numC, Menu orderC[], Menu orderB[])
 			cout<<" x"<<orderC[i].qty<<" RM "<<orderC[i].price * orderC[i].qty<<endl;
 		}
 	}
-
-	
-	
 }
 
 
@@ -259,26 +248,6 @@ void editOrder(Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[], int &
 	}while (again!=0);
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
