@@ -304,7 +304,7 @@ void paymentMethod(int payment)
 
 	int i=0, pin;
 	int cardNo[100];
-	float chargedMoney[100];
+	double chargedMoney[100];
 	double tp, totalMoney=0;
 	
   	//Cash payment option
@@ -319,21 +319,21 @@ void paymentMethod(int payment)
   	else if (payment == 2) 
 	{
    	 	int card_number[100];
-    	++i;
+    		++i;
     
-   	cout << "Enter Your Card No : ";
-    	cin >> card_number[i];
-    
-    	cardNo[i] = card_number[i];
-		
-    	cout << "Enter Your Card Pin [we would never save your pin]  : ";
-    	cin >> pin;
-    	fflush(stdin);
-    	
-	totalMoney += tp ;
-	chargedMoney[i] =+ tp;
+		cout << "Enter Your Card No : ";
+		cin >> card_number[i];
 
- 	}
+		cardNo[i] = card_number[i];
+
+		cout << "Enter Your Card Pin [we would never save your pin]  : ";
+		cin >> pin;
+		fflush(stdin);
+
+		totalMoney += tp ;
+		chargedMoney[i] += tp;
+
+	}
 }
 
 double calcPrice(int numB,int numC, Menu orderC[], Menu orderB[])
