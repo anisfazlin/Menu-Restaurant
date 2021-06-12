@@ -1,0 +1,8 @@
+Caramel Latte		: 12
+Green Tea		:  7
+Cappuccino 		:  9
+Mocha 			:  9
+Mango Shake		:  7
+Strawberry Milk 	:  7
+Americano		:  8
+Hot Chocolate 		:  7
