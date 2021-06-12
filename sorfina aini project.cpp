@@ -42,8 +42,8 @@ int main ()
 	orderMenu(cake, beverage, orderCake, orderBeverage, numC, numB);
 	displayOrder(numB,numC,orderCake, orderBeverage);
 	cout<<endl;
-	
-	cout<< "do you want to edit your order? Y-yes N-no";
+		
+	cout<< "do you want to edit your order? Y-yes N-no: ";
 	cin >> edit;
 	cout<<endl;
 	
@@ -54,7 +54,7 @@ int main ()
 	double amount = calcPrice(numB,numC, orderCake, orderBeverage);
     displayOrder(numB,numC,orderCake,orderBeverage);
     
-    cout<<"\nThe amount that you need to pay is RM"<<amount;
+    cout<<"\nThe amount that you need to pay including tax(6%) is RM"<<amount;
     
 	do{
 		
@@ -92,6 +92,7 @@ void read_menu(Menu cake[], Menu beverage[], ifstream &menuBeverage, ifstream &m
 		
 			getline(menuCake,cake[i].name,':');
 			menuCake>>cake[i].price;
+			menuCake.ignore(1000,'\n');
 		}
 	
 		for (int i=0;i<BEV_ROWS;i++)
@@ -99,6 +100,7 @@ void read_menu(Menu cake[], Menu beverage[], ifstream &menuBeverage, ifstream &m
 		
 			getline(menuBeverage,beverage[i].name,':');
 			menuBeverage>>beverage[i].price;
+			menuBeverage.ignore(1000,'\n');
 		
 		}
 	
@@ -175,8 +177,7 @@ void displayOrder(int numB,int numC, Menu orderC[], Menu orderB[])
 		cout<<"\nYour order for Beverage: \n";
 		for(int i=0;i<numB;i++)
 		{
-			cout<<i+1<<". ";
-			cout<<orderB[i].name;
+			cout<<i+1<<". "<<orderB[i].name;
 			cout<<" x"<<orderB[i].qty<<" RM "<<orderB[i].price*orderB[i].qty<<endl;
 		}
 	}
@@ -186,8 +187,7 @@ void displayOrder(int numB,int numC, Menu orderC[], Menu orderB[])
 		cout<<"\nYour order for Cake: \n";
 		for(int i=0;i<numC;i++)
 		{
-			cout<<i+1<<". ";
-			cout<<orderC[i].name;
+			cout<<i+1<<". "<<orderC[i].name;
 			cout<<" x"<<orderC[i].qty<<" RM "<<orderC[i].price * orderC[i].qty<<endl;
 		}
 	}
@@ -200,7 +200,7 @@ void editOrder(Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[], int &
 	char add,remove;
 	
 	do{
-		cout << "Press 1 to add order \nPress 2 to remove order \nPress 3 to edit quantity\nYour option: ";
+		cout << "Press 1 to add order \nPress 2 to remove order \nYour option: ";
 		cin >> option;
 		cout<<endl;
 		
@@ -246,20 +246,28 @@ void editOrder(Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[], int &
 			
 				if (remove== 'B')
 				{
-					cout << "Which beverage would you like to remove? " ;
+					cout << "Which beverage would you like to remove? (insert number): " ;
 					cin >> removeB;
-					
-					orderB[removeB-1].name='\0';
-					orderB[removeB-1].price= 0;
+		
+					for(int i=removeB;i<numB;i++)
+					{
+					orderB[i-1].name = orderB[i].name;
+					orderB[i-1].price = orderB[i].price;
+					}
+					numB--;
 				}
 				
 				if (remove=='C')
 				{
-					cout << "Which cake would you like to remove? ";
+					cout << "Which cake would you like to remove? (insert number): ";
 					cin>> removeC;
-					
-					orderC[removeC-1].name='\0';
-					orderC[removeC-1].price=0;
+		
+					for(int i=removeC;i<numC;i++)
+					{
+					orderC[i-1].name = orderC[i].name;
+					orderC[i-1].price = orderC[i].price;
+					}
+					numC--;
 				}
 				cout<<endl;
 				}
@@ -313,7 +321,6 @@ void paymentMethod(int payment)
 double calcPrice(int numB,int numC, Menu orderC[], Menu orderB[])
 {
 	const double TAX=0.06;
-	const double DELIVERY=5.00;
 	double totalPrice_excTax=0;
 	double totalPrice,totalPriceBeverage=0,totalPriceCake=0;
 
@@ -329,5 +336,24 @@ double calcPrice(int numB,int numC, Menu orderC[], Menu orderB[])
 	
 	return totalPrice;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
