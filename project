@@ -1,0 +1,315 @@
+#include<iostream>
+
+#include<iomanip>
+
+#include<string.h>
+
+using namespace std;
+
+const int CAKE_ROWS = 4;
+const int BEV_ROWS = 8;
+const int COLS = 25;
+
+void orderMenu(string[], string[], string[], string[], double[], double[], double[], double[], int & , int & , int[], int[]);
+void displayOrder(int, int, string[], double[], string[], double[], int[], int[]);
+void editOrder(int[], int[], int & , int & , string[], string[], string[], string[], double[], double[], double[], double[]);
+double calcPrice(int, int, double[], double[], int[], int[]);
+void listMenu();
+void paymentMethod(int payment);
+
+int order;
+int main() {
+
+  string cake[CAKE_ROWS] = {
+    "Cheese Cake",
+    "Chocolate lava cake",
+    "Blueberry cake",
+    "Biscoff cake"
+  };
+  string beverage[BEV_ROWS] = {
+    "Caramel latte",
+    "Green tea",
+    "Cappuccino",
+    "Mocha",
+    "Mango shake",
+    "Strawberry milkshake",
+    "americano",
+    "Hot chocolate"
+  };
+  double priceCake[CAKE_ROWS] = {
+    10,
+    11,
+    12,
+    12
+  };
+  double priceBeverage[BEV_ROWS] = {
+    12,
+    7,
+    9,
+    9,
+    7,
+    7,
+    8,
+    7
+  };
+  string orderBeverage[BEV_ROWS];
+  string orderCake[CAKE_ROWS];
+  double orderPriceBeverage[10];
+  double orderPriceCake[10];
+  int numC = 0, numB = 0, qtyCake[10], qtyBeverage[10];
+  int payMethod;
+  char edit;
+
+  listMenu();
+
+  cout << fixed << showpoint << setprecision(2);
+  orderMenu(cake, orderBeverage, orderCake, beverage, priceCake, priceBeverage, orderPriceBeverage, orderPriceCake, numC, numB, qtyCake, qtyBeverage);
+  displayOrder(numB, numC, orderBeverage, orderPriceBeverage, orderCake, orderPriceCake, qtyCake, qtyBeverage);
+  cout << endl;
+
+  cout << "do you want to edit your order? Y-yes N-no";
+  cin >> edit;
+  cout << endl;
+
+  if (edit == 'Y')
+    editOrder(qtyCake, qtyBeverage, numC, numB, cake, beverage, orderCake, orderBeverage, priceCake, priceBeverage, orderPriceCake, orderPriceBeverage);
+
+  displayOrder(numB, numC, orderBeverage, orderPriceBeverage, orderCake, orderPriceCake, qtyCake, qtyBeverage);
+  cout << calcPrice(numB, numC, orderPriceBeverage, orderPriceCake, qtyCake, qtyBeverage);
+
+  while(payMethod!=1 || payMethod!= 2){
+    cout << "Enter preferrable payment method:\n";
+    cout << "1-Cash, 2-Card:\n";
+    cin >> payMethod;
+
+    paymentMethod(payMethod);
+  }
+
+  return 0;
+}
+
+void orderMenu(string cake[], string orderB[], string orderC[], string beverage[], double priceC[], double priceB[], double orderPriceB[], double orderPriceC[], int & numC, int & numB, int qtyCake[], int qtyBeverage[]) {
+  int drinkNo, foodNo;
+  float orderBeverage;
+  char answer;
+
+  cout << "\tORDER FOR BEVERAGE" << endl;
+  cout << "Do you want to order beverage? Y-yes N-no: ";
+  cin >> answer;
+
+  if (answer == 'Y') {
+    for (int i = 0; answer == 'Y'; i++) {
+      cout << "Please select number of drinks:";
+      cin >> drinkNo;
+      cout << "Quantity: ";
+      cin >> qtyBeverage[i];
+
+      orderB[i] = beverage[drinkNo - 1];
+      orderPriceB[i] = priceB[drinkNo - 1];
+
+      cout << "\nAdd another order for beverage? Y-yes N-no: ";
+      cin >> answer;
+
+      numB++;
+    }
+  }
+
+  cout << "\n\tORDER FOR CAKE" << endl;
+  cout << "Do you want to order cake? Y-yes N-no: ";
+  cin >> answer;
+
+  if (answer == 'Y') {
+    for (int i = 0; answer == 'Y'; i++) {
+      cout << "Please select number of cake:";
+      cin >> foodNo;
+      cout << "Quantity: ";
+      cin >> qtyCake[i];
+
+      orderC[i] = cake[foodNo - 1];
+      orderPriceC[i] = priceC[foodNo - 1];
+
+      cout << "\nAdd another order for cake? Y-yes N-no: ";
+      cin >> answer;
+
+      numC++;
+    }
+  }
+
+}
+
+void displayOrder(int numB, int numC, string orderBeverage[], double orderPriceBeverage[], string orderCake[], double orderPriceCake[], int qtyCake[], int qtyBeverage[]) {
+  char edit;
+
+  cout << "\nORDER : ";
+
+  if (numB != 0) {
+    cout << "\nYour order for Beverage: \n";
+    for (int i = 0; i < numB; i++) {
+      cout << i + 1 << ". ";
+      cout << orderBeverage[i];
+      cout << " x" << qtyBeverage[i] << " RM " << orderPriceBeverage[i] * qtyBeverage[i] << endl;
+    }
+  }
+
+  if (numC != 0) {
+    cout << "\nYour order for Cake: \n";
+    for (int i = 0; i < numC; i++) {
+      cout << i + 1 << ". ";
+      cout << orderCake[i];
+      cout << " x" << qtyCake[i] << " RM " << orderPriceCake[i] * qtyCake[i] << endl;
+    }
+  }
+
+}
+
+void editOrder(int qtyCake[], int qtyBeverage[], int & numC, int & numB, string cake[], string beverage[], string orderCake[], string orderBeverage[], double priceCake[], double priceBeverage[], double orderPriceCake[], double orderPriceBeverage[]) {
+  int option, addB, addC, removeB, removeC, again;
+  char add, remove;
+
+  do {
+    cout << "Press 1 to add order \nPress 2 to remove order \nPress 3 to edit quantity\nYour option: ";
+    cin >> option;
+    cout << endl;
+
+    switch (option) {
+    case 1: {
+      cout << "Press B to add beverages, Press C to add cakes: ";
+      cin >> add;
+
+      if (add == 'B') {
+        cout << "Insert additional beverage order: ";
+        cin >> addB;
+        cout << "Quantity: ";
+        cin >> qtyBeverage[numB];
+
+        orderBeverage[numB] = beverage[addB - 1];
+        orderPriceBeverage[numB] = priceBeverage[addB - 1];
+        numB++;
+        cout << endl;
+
+      }
+
+      if (add == 'C') {
+        cout << "Insert additional cake order: ";
+        cin >> addC;
+        cout << "Quantity: ";
+        cin >> qtyCake[numC];
+
+        orderCake[numC] = cake[addC - 1];
+        orderPriceCake[numC] = priceCake[addC - 1];
+        numC++;
+        cout << endl;
+      }
+    }
+    break;
+
+    case 2: {
+      cout << "Press B to remove beverages, Press C to remove cakes: ";
+      cin >> remove;
+
+      if (remove == 'B') {
+        cout << "Which beverage would you like to remove? ";
+        cin >> removeB;
+
+        orderBeverage[removeB - 1] = '\0';
+        orderPriceBeverage[removeB - 1] = 0;
+      }
+
+      if (remove == 'C') {
+        cout << "Which cake would you like to remove? ";
+        cin >> removeC;
+
+        orderCake[removeC - 1] = '\0';
+        orderPriceBeverage[removeB - 1] = 0;
+      }
+      cout << endl;
+    }
+    }
+
+    cout << "Do you want to edit again? 1-yes 0-no: ";
+    cin >> again;
+    cout << endl;
+
+  } while (again != 0);
+
+}
+
+double calcPrice(int numB, int numC, double orderPriceBeverage[], double orderPriceCake[], int qtyCake[], int qtyBeverage[]) {
+  double tp = 0, totalPriceBeverage = 0, totalPriceCake = 0;
+
+  for (int i = 0; i < (numB + numC); i++) {
+
+    totalPriceBeverage += (orderPriceBeverage[i] * qtyBeverage[i]);
+    totalPriceCake += (orderPriceCake[i] * qtyCake[i]);
+
+    tp += (totalPriceBeverage + totalPriceCake);
+  }
+
+  return tp;
+
+}
+
+void paymentMethod(int payment) {
+
+int c=0;
+	int cardno[100];
+	float cardmoney[100];
+	double tp, temp=0, totalmoney=0;
+	
+  //Cash payment option
+  if (payment == 1) {
+
+    temp += tp;
+    totalmoney += temp ;
+    order++;
+
+  }
+  ///Credit/Debit Card Option
+  else if (payment == 2) {
+
+    int card_number;
+
+    c++;
+
+    cout << "Enter Your Card No : ";
+    cin >> card_number;
+
+    cardno[c] = card_number;
+
+    int pin;
+    cout << "Enter Your Card Pin [we never save your pin]  : ";
+    cin >> pin;
+    fflush(stdin);
+    
+    temp += tp;
+    cardmoney[c] =+ temp;
+
+    order++;
+  }
+  
+  cout << "===>THANK YOU<===";
+  cout << "Item Ordered Successfully ! \n";
+ 
+}
+
+void listMenu() {
+  cout << endl << "********************************************************************************" << endl;
+  cout << "\n\t Welcome to the Lass County Cafe! \t\n\n";
+  cout << " Beverages Menu :\t\n\n";
+  cout << "01" << setw(15) << "Caramel Latte" << setw(20) << "RM12\n";
+  cout << "02" << setw(11) << "Green Tea" << setw(23) << "RM7\n";
+  cout << "03" << setw(12) << "Cappuccino" << setw(22) << "RM9\n";
+  cout << "04" << setw(7) << "Mocha" << setw(27) << "RM9\n";
+  cout << "05" << setw(13) << "Mango shake" << setw(21) << "RM7\n";
+  cout << "06" << setw(22) << "Strawberry Milkshake" << setw(12) << "RM7\n";
+  cout << "07" << setw(11) << "Americano" << setw(23) << "RM8\n";
+  cout << "08" << setw(15) << "Hot Chocolate" << setw(19) << "RM7\n";
+
+  cout << "\n\n\t Cakes Menu :\t\n\n";
+  cout << "01" << setw(13) << "Cheese Cake" << setw(22) << "RM10\n";
+  cout << "02" << setw(21) << "Chocolate Lava Cake" << setw(14) << "RM11\n";
+  cout << "03" << setw(16) << "Blueberry Cake" << setw(19) << "RM12\n";
+  cout << "04" << setw(14) << "Biscoff Cake" << setw(23) << "RM12\n\n\n";
+  cout << endl << "********************************************************************************" << endl;
+
+}
