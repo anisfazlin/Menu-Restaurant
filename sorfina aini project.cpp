@@ -295,7 +295,7 @@ void paymentMethod(int payment)
    	 	int card_number[100];
     	++i;
     
-   	 	cout << "Enter Your Card No : ";
+   	cout << "Enter Your Card No : ";
     	cin >> card_number[i];
     
     	cardNo[i] = card_number[i];
