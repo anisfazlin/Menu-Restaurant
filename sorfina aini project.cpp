@@ -37,6 +37,9 @@ int main ()
 	int numC=0,numB=0, payMethod;
 	char edit;
 	
+	cout << endl << "********************************************************************************" << endl;
+  	cout << "\n\t Welcome to the Lass County Cafe! \t\n\n";
+	
 	read_menu(cake,beverage,  menuBeverage, menuCake);
 	cout<<fixed<<showpoint<<setprecision(2);
 	orderMenu(cake, beverage, orderCake, orderBeverage, numC, numB);
@@ -336,24 +339,3 @@ double calcPrice(int numB,int numC, Menu orderC[], Menu orderB[])
 	
 	return totalPrice;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
