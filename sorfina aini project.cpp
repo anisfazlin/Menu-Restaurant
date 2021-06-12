@@ -54,11 +54,11 @@ int main ()
 	double amount = calcPrice(numB,numC, orderCake, orderBeverage);
     displayOrder(numB,numC,orderCake,orderBeverage);
     
-    cout<<"The amount that you need to pay is RM"<<amount;
+    cout<<"\nThe amount that you need to pay is RM"<<amount;
     
 	do{
 		
-   		cout << "Enter preferrable payment method:\n";
+   		cout << "\nEnter preferrable payment method:\n";
   	  	cout << "1-Cash, 2-Card: ";
   	  	cin >> payMethod;
 
