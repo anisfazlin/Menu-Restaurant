@@ -276,17 +276,16 @@ void editOrder(Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[], int &
 void paymentMethod(int payment) 
 {
 
-	int i=0;
+	int i=0, pin;
 	int cardNo[100];
-	float cardmoney[100];
-	double tp, temp=0, totalmoney=0;
+	float chargedMoney[100];
+	double tp, totalMoney=0;
 	
   	//Cash payment option
   	if (payment == 1) 
 	{
 
-   		temp += tp;
-   		totalmoney += temp ;
+   		totalMoney += tp ;
   		
   	}
   	
@@ -300,15 +299,13 @@ void paymentMethod(int payment)
     	cin >> card_number[i];
     
     	cardNo[i] = card_number[i];
-		cardmoney[i] = cardNo[i];
-
-    	int pin;
+		
     	cout << "Enter Your Card Pin [we would never save your pin]  : ";
     	cin >> pin;
     	fflush(stdin);
-    
-    	temp += tp;
-    	totalmoney += temp ;
+    	
+	chargedMoney[i] =+ tp;
+    	totalMoney += tp ;
 
  	}
 }
@@ -332,4 +329,5 @@ double calcPrice(int numB,int numC, Menu orderC[], Menu orderB[])
 	
 	return totalPrice;
 }
+
 
