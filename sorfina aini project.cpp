@@ -304,8 +304,8 @@ void paymentMethod(int payment)
     	cin >> pin;
     	fflush(stdin);
     	
+	totalMoney += tp ;
 	chargedMoney[i] =+ tp;
-    	totalMoney += tp ;
 
  	}
 }
