@@ -16,7 +16,7 @@ struct Menu
 	int qty;
 };
 
-
+void displayMenu (Menu [], Menu []);
 void orderMenu(Menu [], Menu[], Menu [], Menu [], int&,int &);
 void displayOrder(int ,int, Menu[], Menu[] );
 void editOrder(Menu [], Menu[], Menu [], Menu [], int &, int &);
@@ -42,6 +42,8 @@ int main ()
 	
 	read_menu(cake,beverage,  menuBeverage, menuCake);
 	cout<<fixed<<showpoint<<setprecision(2);
+	
+	displayMenu (cake, beverage);
 	orderMenu(cake, beverage, orderCake, orderBeverage, numC, numB);
 	displayOrder(numB,numC,orderCake, orderBeverage);
 	cout<<endl;
@@ -112,7 +114,20 @@ void read_menu(Menu cake[], Menu beverage[], ifstream &menuBeverage, ifstream &m
 	menuBeverage.close();
 }
 
-
+void displayMenu (Menu cake[], Menu beverage[])
+{
+	cout<<left<<setw(25)<<"CAKE"<<setw(6)<<"PRICE"<<endl;
+	cout<<"------------------------------------"<<endl;
+	for(int i=0;i<CAKE_ROWS;i++)
+		cout<<left<<setw(25)<<cake[i].name<<setw(6)<<cake[i].price<<endl;
+		cout<<endl;
+		
+	cout<<left<<setw(25)<<"BEVERAGE"<<setw(6)<<"PRICE"<<endl;
+	cout<<"-----------------------------------"<<endl;
+	for(int i=0;i<CAKE_ROWS;i++)
+		cout<<left<<setw(25)<<beverage[i].name<<setw(6)<<beverage[i].price<<endl;
+		cout<<endl;
+}
 
 void orderMenu (Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[],int &numC,int &numB )
 {
