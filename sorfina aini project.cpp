@@ -37,11 +37,11 @@ int main ()
 	int numC=0,numB=0, payMethod;
 	char edit;
 	
-	cout << endl << "********************************************************************************" << endl;
-  	cout << "\n\t Welcome to the Lass County Cafe! \t\n\n";
-	
 	read_menu(cake,beverage,  menuBeverage, menuCake);
 	cout<<fixed<<showpoint<<setprecision(2);
+	
+	cout << endl << "********************************************************************************" << endl;
+  	cout << "\n\t Welcome to the Lass County Cafe! \t\n\n";
 	
 	displayMenu (cake, beverage);
 	orderMenu(cake, beverage, orderCake, orderBeverage, numC, numB);
@@ -119,13 +119,13 @@ void displayMenu (Menu cake[], Menu beverage[])
 	cout<<left<<setw(25)<<"CAKE"<<setw(6)<<"PRICE"<<endl;
 	cout<<"------------------------------------"<<endl;
 	for(int i=0;i<CAKE_ROWS;i++)
-		cout<<left<<setw(25)<<cake[i].name<<setw(6)<<cake[i].price<<endl;
+		cout<<left<<setw(3)<<i+1<<setw(25)<<cake[i].name<<setw(6)<<cake[i].price<<endl;
 		cout<<endl;
 		
 	cout<<left<<setw(25)<<"BEVERAGE"<<setw(6)<<"PRICE"<<endl;
 	cout<<"-----------------------------------"<<endl;
 	for(int i=0;i<CAKE_ROWS;i++)
-		cout<<left<<setw(25)<<beverage[i].name<<setw(6)<<beverage[i].price<<endl;
+		cout<<left<<setw(3)<<i+1<<setw(25)<<beverage[i].name<<setw(6)<<beverage[i].price<<endl;
 		cout<<endl;
 }
 
