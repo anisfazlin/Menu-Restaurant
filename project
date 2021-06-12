@@ -77,13 +77,15 @@ int main() {
   displayOrder(numB, numC, orderBeverage, orderPriceBeverage, orderCake, orderPriceCake, qtyCake, qtyBeverage);
   cout << calcPrice(numB, numC, orderPriceBeverage, orderPriceCake, qtyCake, qtyBeverage);
 
-  while(payMethod!=1 || payMethod!= 2){
+  do{
     cout << "Enter preferrable payment method:\n";
-    cout << "1-Cash, 2-Card:\n";
+    cout << "1-Cash, 2-Card: ";
     cin >> payMethod;
 
     paymentMethod(payMethod);
-  }
+    
+  }while(payMethod != 1 && payMethod != 2);
+
 
   return 0;
 }
@@ -251,7 +253,7 @@ double calcPrice(int numB, int numC, double orderPriceBeverage[], double orderPr
 
 void paymentMethod(int payment) {
 
-int c=0;
+int i=0;
 	int cardno[100];
 	float cardmoney[100];
 	double tp, temp=0, totalmoney=0;
@@ -267,14 +269,14 @@ int c=0;
   ///Credit/Debit Card Option
   else if (payment == 2) {
 
-    int card_number;
-
-    c++;
-
+    int card_number[100];
+    ++i;
+    
     cout << "Enter Your Card No : ";
-    cin >> card_number;
-
-    cardno[c] = card_number;
+    cin >> card_number[i];
+    
+    cardno[i] = card_number[i];
+    
 
     int pin;
     cout << "Enter Your Card Pin [we never save your pin]  : ";
@@ -282,13 +284,13 @@ int c=0;
     fflush(stdin);
     
     temp += tp;
-    cardmoney[c] =+ temp;
-
+    totalmoney += temp ;
     order++;
+
   }
   
-  cout << "===>THANK YOU<===";
-  cout << "Item Ordered Successfully ! \n";
+  cout << "\n  ===>THANK YOU<===\n";
+  cout << "  Item Ordered Successfully ! \n\n";
  
 }
 
