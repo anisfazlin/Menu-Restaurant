@@ -108,7 +108,7 @@ void menuCafe (Menu *cake, Menu *beverage)
 		
 	cout<<"\t"<<"\t"<<left<<setw(25)<<"BEVERAGE"<<setw(6)<<"PRICE"<<endl;
 	cout<<"\t\t-----------------------------------"<<endl;
-	for(int i=0;i<CAKE_ROWS;i++)
+	for(int i=0;i<BEV_ROWS;i++)
 		cout<<"\t"<<"\t"<<left<<setw(3)<<i+1<<setw(25)<<(beverage +i)->name<<setw(6)<<(beverage +i)->price<<endl;
 		cout<<endl<<endl;
 		
