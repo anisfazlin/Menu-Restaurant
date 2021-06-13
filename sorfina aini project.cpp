@@ -8,7 +8,7 @@ using namespace std;
 const int CAKE_ROWS=4;
 const int BEV_ROWS=8;
 
-// declaration data structure for Menu
+// to store different types of data in Menu
 struct Menu
 {
 	string name;
@@ -36,8 +36,8 @@ int main ()
 	
 	ifstream menuCake, menuBeverage;  
 	
-	int numC=0,numB=0, payMethod;
-
+	int numC=0,numB=0, payMethod;		//numB is order for beverage, 
+						//numC is the order for cake
 	menuCafe(cake,beverage,  menuBeverage, menuCake);
 	cout<<fixed<<showpoint<<setprecision(2);
 		
@@ -54,11 +54,11 @@ int main ()
     paymentMethod(payMethod, amount);
     
     cout << "\n\n\t\t   ====>THANK YOU<====\n";
-  	cout << "\t\tItem Ordered Successfully ! \n\n";
+    cout << "\t\tItem Ordered Successfully ! \n\n";
     
 	return 0;
 }
-// function to open file for menu
+// function to open file for Menu
 void menuCafe (Menu *cake, Menu *beverage, ifstream &menuBeverage, ifstream &menuCake)
 {
 	
@@ -90,11 +90,11 @@ void menuCafe (Menu *cake, Menu *beverage, ifstream &menuBeverage, ifstream &men
 		
 		}
 	
-	}
+	}	// to close the file
 		menuCake.close();
 		menuBeverage.close();
 }	
-	// function to display welcome and menu list function
+// function to display welcome and menu list function
 void menuCafe (Menu *cake, Menu *beverage).      
 {
 	cout << endl << "**********************************************************************" << endl;
@@ -334,13 +334,13 @@ void paymentMethod(int payment, double totalPrice)
   		cout << "1-Cash, 2-Card: ";
   		cin >> payment;
   	
-  		//Cash payment option
+  		//cash payment option
   		if (payment == 1) 
 		{
-   			totalMoney += totalPrice ;
+   			totalMoney += totalPrice ;  //store total money customer have to pay
   		}
   	
- 	 	///Credit/Debit Card Option
+ 	 	///debit//credit Card payment option
  	 	else if (payment == 2) 
 		{
  	  	 	int card_number[100];
@@ -356,7 +356,7 @@ void paymentMethod(int payment, double totalPrice)
 			fflush(stdin);
 
 			totalMoney += totalPrice ;
-			chargedMoney[i] += totalMoney;
+			chargedMoney[i] += totalMoney;		// store money that has to be charged from the card
 
 		}
 	
