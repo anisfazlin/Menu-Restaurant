@@ -14,25 +14,27 @@ struct Menu
 	string name;
 	double price;
 	int qty;
+
 };
+
 void menuCafe(Menu*, Menu*,ifstream& , ifstream&);
 void menuCafe (Menu *, Menu *);
 void orderMenu(Menu [], Menu[], Menu [], Menu [], int&,int &);
 void displayOrder(int ,int, Menu*, Menu* );
 void editOrder(Menu *, Menu*, Menu *, Menu*, int &, int &);
-void paymentMethod(int, double) ;
+void paymentMethod(int, double ) ;
 double calcPrice(int ,int ,Menu *, Menu *);
 
 
 int main ()
 {
 	Menu cake[CAKE_ROWS];
-	Menu beverage[BEV_ROWS];
+	Menu beverage[BEV_ROWS];  //declaration structure to array
 	Menu orderCake[10];
 	Menu orderBeverage[10];
 	
 	
-	ifstream menuCake, menuBeverage;
+	ifstream menuCake, menuBeverage; 
 	
 	int numC=0,numB=0, payMethod;
 
@@ -60,16 +62,16 @@ int main ()
 void menuCafe (Menu *cake, Menu *beverage, ifstream &menuBeverage, ifstream &menuCake)
 {
 	
-		menuCake.open("Cake Menu.txt");
-		menuBeverage.open("Drink Menu.txt");
+		menuCake.open("Cake Menu.txt"); //open the file with the 
+		menuBeverage.open("Drink Menu.txt"); //external name Cake Menu.txt and Drink Menu.txt
 	
-	if (menuBeverage.fail()||menuCake.fail())     //chech for successful open
+	if (menuBeverage.fail()||menuCake.fail())    //chech for successful open
 	{
 		cout<<"\nCannot display the menu"<<endl;
 		exit(1);
 	}
 	
-	else
+	else //assign the value to 1-d array using pointer notation
 	{
 		for (int i=0;i<CAKE_ROWS;i++)
 		{
@@ -99,14 +101,15 @@ void menuCafe (Menu *cake, Menu *beverage)
   	cout << "\n\t\tWelcome to the Lass County Cafe! \t\n";
   	cout << endl << "**********************************************************************" << endl<<endl;
 	
-	cout<<"\t"<<"\t"<<left<<setw(25)<<"CAKE"<<setw(6)<<"PRICE"<<endl;
+	
+	cout<<"\t"<<"\t"<<left<<setw(25)<<"CAKE"<<setw(6)<<"PRICE"<<endl; //display the list of cake's menu
 	cout<<"\t\t------------------------------------"<<endl;
 	for(int i=0;i<CAKE_ROWS;i++)
 		cout<<"\t"<<"\t"<<left<<setw(3)<<i+1<<setw(25)<<(cake +i)->name<<setw(6)<<(cake +i)->price<<endl;
 		cout<<endl;
 		
 		
-	cout<<"\t"<<"\t"<<left<<setw(25)<<"BEVERAGE"<<setw(6)<<"PRICE"<<endl;
+	cout<<"\t"<<"\t"<<left<<setw(25)<<"BEVERAGE"<<setw(6)<<"PRICE"<<endl; //display the list of beverage's menu
 	cout<<"\t\t-----------------------------------"<<endl;
 	for(int i=0;i<BEV_ROWS;i++)
 		cout<<"\t"<<"\t"<<left<<setw(3)<<i+1<<setw(25)<<(beverage +i)->name<<setw(6)<<(beverage +i)->price<<endl;
@@ -123,7 +126,7 @@ void orderMenu (Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[],int &
 	do{
 	
 		cout<<"\n\t->ORDER FOR BEVERAGE<-"<<endl<<endl;
-		cout<<"Do you want to order beverage? Y-yes N-no: ";
+		cout<<"Do you want to order beverage? Y-yes N-no: "; 
 		cin>>answerB;
 	
 		if(answerB=='Y')
@@ -136,7 +139,7 @@ void orderMenu (Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[],int &
 				cout<<"Quantity: ";
 				cin>>orderB[i].qty;
 			
-				orderB[i].name=beverage[drinkNo-1].name;
+				orderB[i].name=beverage[drinkNo-1].name;    //store the selected beverage's index to variable beverage's order
 				orderB[i].price=beverage[drinkNo-1].price;
 			
 				cout<<"\nAdd another order for beverage? Y-yes N-no: ";
@@ -153,53 +156,53 @@ void orderMenu (Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[],int &
 			cout<<"Do you want to order cake? Y-yes N-no: ";
 			cin>>answerC;
 	
-			if(answerC=='Y')
+		if(answerC=='Y')
+		{
+			
+			for (int i=0;answerC=='Y';i++)
 			{
+				cout<<"Please select number of cake:";
+				cin>>foodNo;
+				cout<<"Quantity: ";
+				cin>>orderC[i].qty;
 			
-				for (int i=0;answerC=='Y';i++)
-				{
-					cout<<"Please select number of cake:";
-					cin>>foodNo;
-					cout<<"Quantity: ";
-					cin>>orderC[i].qty;
-			
-					orderC[i].name=cake[foodNo-1].name;
-					orderC[i].price=cake[foodNo-1].price;
+				orderC[i].name=cake[foodNo-1].name; //store the selected cake's index to variable beverage's order
+				orderC[i].price=cake[foodNo-1].price;
 	
-					cout<<"\nAdd another order for cake? Y-yes N-no: ";
-					cin>>answerC;
+				cout<<"\nAdd another order for cake? Y-yes N-no: ";
+				cin>>answerC;
 				
-					if(answerC=='N')
-						answerC='A';
+				if(answerC=='N')
+					answerC='A';
 				
-					numC++;
-				}
+				numC++;
 			}
+		}
 
-			if(answerC=='N'&&answerB=='N')
+		if(answerC=='N'&&answerB=='N')
+		{
+			cout<<"Are comfirmed leave without leaving? (1- Yes 2- No): "; // if the customer choose 'N'-no for both option above, 
+			cin>>leave;						 // ask them again whether they want to continue or exit the program
+		
+			if (leave==1)  // the customer decide to leave the program
 			{
-				cout<<"Are comfirmed leave without leaving? (1- Yes 2- No): ";
-				cin>>leave;
-		
-				if (leave==1)
-				{
-					cout<<"\n\n\tPlease come again next time!\n";
-					exit(1);
-				}
+				cout<<"\n\n\tPlease come again next time!\n";
+				exit(1);
 			}
+		}
 		
-	}while(leave==2&&(answerB=='N'&&answerC=='N'));
+	}while(leave==2&&answerB=='N'&&answerC=='N');
 }
 
 void displayOrder(int numB,int numC, Menu *orderC, Menu *orderB)
 {
-	char edit;
+	//display the list order that customer decide to buy
 	
 	cout<<"\nYOUR ORDER : ";
 	
 	if(numB!=0)
 	{
-		cout<<"\nYour order for Beverage: \n";
+		cout<<"\nYour order for Beverage: \n"; 
 		for(int i=0;i<numB;i++)
 		{
 			cout<<i+1<<". "<<(orderB +i)->name;
@@ -221,8 +224,10 @@ void displayOrder(int numB,int numC, Menu *orderC, Menu *orderB)
 
 void editOrder(Menu *cake, Menu *beverage, Menu *orderC, Menu *orderB, int &numC, int &numB)
 {
-	int option,addB,addC,removeB,removeC,again;
-	char add,remove,edit;
+	//this function for customer that want to edit the order that they already decided
+	
+	int option,addB,addC,removeB,removeC;
+	char edit;
 	
 	cout<< "\nDo you want to edit your order? Y-yes N-no: ";
 	cin >> edit;
@@ -232,7 +237,7 @@ void editOrder(Menu *cake, Menu *beverage, Menu *orderC, Menu *orderB, int &numC
 	{
 	
 		do{
-			cout << "Press 1 to add order \nPress 2 to remove order \nYour option: ";
+			cout << "Press 1 to add order \nPress 2 to remove order \nYour option: "; // give two option if they want to add order or remove them
 			cin >> option;
 			cout<<endl;
 		
@@ -241,16 +246,16 @@ void editOrder(Menu *cake, Menu *beverage, Menu *orderC, Menu *orderB, int &numC
 				case 1:
 				{
 					cout << "Press B to add beverages, Press C to add cakes: ";
-					cin >> add;
+					cin >> edit;
 			
-					if (add=='B')
+					if (edit=='B')
 					{
 						cout << "Insert additional beverage order: ";
 						cin>> addB;
 						cout<<"Quantity: ";
 						cin>>(orderB+numB)->qty;
 			
-						(orderB+numB)->name=(beverage+addB-1)->name;
+						(orderB+numB)->name=(beverage+addB-1)->name;    
 						(orderB+numB)->price=(beverage+addB-1)->price;
 						numB++;
 					
@@ -258,7 +263,7 @@ void editOrder(Menu *cake, Menu *beverage, Menu *orderC, Menu *orderB, int &numC
 				
 					}
 					
-					if (add=='C')
+					if (edit=='C')
 					{
 						cout << "Insert additional cake order: ";
 						cin>> addC;
@@ -276,9 +281,9 @@ void editOrder(Menu *cake, Menu *beverage, Menu *orderC, Menu *orderB, int &numC
 				case 2:
 				{
 					cout << "Press B to remove beverages, Press C to remove cakes: ";
-					cin >> remove;
+					cin >> edit;
 			
-					if (remove== 'B')
+					if (edit== 'B')
 					{
 						cout << "Which beverage would you like to remove? (insert number): " ;
 						cin >> removeB;
@@ -291,7 +296,7 @@ void editOrder(Menu *cake, Menu *beverage, Menu *orderC, Menu *orderB, int &numC
 						numB--;
 					}
 					
-					if (remove=='C')
+					if (edit=='C')
 					{
 						cout << "Which cake would you like to remove? (insert number): ";
 						cin>> removeC;
@@ -308,10 +313,10 @@ void editOrder(Menu *cake, Menu *beverage, Menu *orderC, Menu *orderB, int &numC
 			}
 	
 			cout << "Do you want to edit again? 1-yes 0-no: ";
-			cin >> again;
+			cin >> option;
 			cout<<endl;
 	
-		}while (again!=0);
+		}while (option!=0);
 	}
 	
 }
@@ -321,7 +326,7 @@ void paymentMethod(int payment, double totalPrice)
 
 	int i=0, pin;
 	int cardNo[100];
-	double chargedMoney[100];
+	double chargedMoney[20];
 	double totalMoney=0;
 	
 	do{
@@ -369,10 +374,10 @@ double calcPrice(int numB,int numC, Menu *orderC, Menu *orderB)
 	{
 		
 		totalPriceBeverage+=((orderB +i)->price*(orderB +i)->qty);
-		totalPriceCake+=((orderC +i)->price*(orderC +i)->qty);
+		totalPriceCake+=((orderC +i)->price*(orderC +i)->qty); 
 		
-		totalPrice_excTax=(totalPriceBeverage+totalPriceCake)*TAX;
-		totalPrice=totalPriceBeverage+totalPriceCake+totalPrice_excTax;
+		totalPrice_excTax=(totalPriceBeverage+totalPriceCake)*TAX; // store price of tax
+		totalPrice=totalPriceBeverage+totalPriceCake+totalPrice_excTax; //store total price including tax
 	}
 	
 	return totalPrice;
