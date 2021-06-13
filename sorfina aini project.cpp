@@ -8,7 +8,7 @@ using namespace std;
 const int CAKE_ROWS=4;
 const int BEV_ROWS=8;
 
-
+// declaration data structure for Menu
 struct Menu
 {
 	string name;
@@ -17,13 +17,13 @@ struct Menu
 
 };
 
-void menuCafe(Menu*, Menu*,ifstream& , ifstream&);
-void menuCafe (Menu *, Menu *);
-void orderMenu(Menu [], Menu[], Menu [], Menu [], int&,int &);
-void displayOrder(int ,int, Menu*, Menu* );
-void editOrder(Menu *, Menu*, Menu *, Menu*, int &, int &);
-void paymentMethod(int, double ) ;
-double calcPrice(int ,int ,Menu *, Menu *);
+void menuCafe(Menu*, Menu*,ifstream& , ifstream&);			 // function to open file for menu
+void menuCafe (Menu *, Menu *);                                          // display welcome and list menu function
+void orderMenu(Menu [], Menu[], Menu [], Menu [], int&,int &);		 // function to order from list menu
+void displayOrder(int ,int, Menu*, Menu* );				 // function to display customer's order
+void editOrder(Menu *, Menu*, Menu *, Menu*, int &, int &);              // function for customer that want to edit the order that they already decided
+void paymentMethod(int, double ) ;                                       // function to determine payment method for customer's order
+double calcPrice(int ,int ,Menu *, Menu *);                              // function to calculate the price from customer's order
 
 
 int main ()
@@ -34,7 +34,7 @@ int main ()
 	Menu orderBeverage[10];
 	
 	
-	ifstream menuCake, menuBeverage; 
+	ifstream menuCake, menuBeverage;  
 	
 	int numC=0,numB=0, payMethod;
 
@@ -58,7 +58,7 @@ int main ()
     
 	return 0;
 }
-
+// function to open file for menu
 void menuCafe (Menu *cake, Menu *beverage, ifstream &menuBeverage, ifstream &menuCake)
 {
 	
@@ -70,7 +70,7 @@ void menuCafe (Menu *cake, Menu *beverage, ifstream &menuBeverage, ifstream &men
 		cout<<"\nCannot display the menu"<<endl;
 		exit(1);
 	}
-	
+	    
 	else //assign the value to 1-d array using pointer notation
 	{
 		for (int i=0;i<CAKE_ROWS;i++)
@@ -94,8 +94,8 @@ void menuCafe (Menu *cake, Menu *beverage, ifstream &menuBeverage, ifstream &men
 		menuCake.close();
 		menuBeverage.close();
 }	
-
-void menuCafe (Menu *cake, Menu *beverage)
+	// function to display welcome and menu list function
+void menuCafe (Menu *cake, Menu *beverage).      
 {
 	cout << endl << "**********************************************************************" << endl;
   	cout << "\n\t\tWelcome to the Lass County Cafe! \t\n";
@@ -116,7 +116,7 @@ void menuCafe (Menu *cake, Menu *beverage)
 		cout<<endl<<endl;
 		
 }
-
+// function to order from list menu
 void orderMenu (Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[],int &numC,int &numB )
 {
 	int drinkNo,foodNo, leave ;
@@ -193,7 +193,7 @@ void orderMenu (Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[],int &
 		
 	}while(leave==2&&answerB=='N'&&answerC=='N');
 }
-
+// function to display customer's order
 void displayOrder(int numB,int numC, Menu *orderC, Menu *orderB)
 {
 	//display the list order that customer decide to buy
@@ -221,10 +221,9 @@ void displayOrder(int numB,int numC, Menu *orderC, Menu *orderB)
 	}
 }
 
-
+// function for customer that want to edit the order that they already decided
 void editOrder(Menu *cake, Menu *beverage, Menu *orderC, Menu *orderB, int &numC, int &numB)
 {
-	//this function for customer that want to edit the order that they already decided
 	
 	int option,addB,addC,removeB,removeC;
 	char edit;
@@ -320,7 +319,7 @@ void editOrder(Menu *cake, Menu *beverage, Menu *orderC, Menu *orderB, int &numC
 	}
 	
 }
-
+// function to determine payment method
 void paymentMethod(int payment, double totalPrice) 
 {
 
@@ -363,7 +362,7 @@ void paymentMethod(int payment, double totalPrice)
 	
 	}while(payment != 1 && payment != 2);
 }
-
+// function to calculate the price from customer's order
 double calcPrice(int numB,int numC, Menu *orderC, Menu *orderB)
 {
 	const double TAX=0.06;
