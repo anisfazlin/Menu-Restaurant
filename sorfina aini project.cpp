@@ -8,7 +8,7 @@ using namespace std;
 const int CAKE_ROWS=4;
 const int BEV_ROWS=8;
 
-// to store different types of data in Menu
+// declare global type to store different types of data
 struct Menu
 {
 	string name;
