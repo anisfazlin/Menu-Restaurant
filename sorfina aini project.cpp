@@ -357,7 +357,7 @@ void paymentMethod(int payment, double totalPrice)
 			fflush(stdin);
 
 			totalMoney += totalPrice ;
-			chargedMoney[i] += totalPrice;
+			chargedMoney[i] += totalMoney;
 
 		}
 	
