@@ -20,7 +20,7 @@ void menuCafe (Menu *, Menu *);
 void orderMenu(Menu [], Menu[], Menu [], Menu [], int&,int &);
 void displayOrder(int ,int, Menu*, Menu* );
 void editOrder(Menu *, Menu*, Menu *, Menu*, int &, int &);
-void paymentMethod(int ) ;
+void paymentMethod(int, double) ;
 double calcPrice(int ,int ,Menu *, Menu *);
 
 
@@ -49,7 +49,7 @@ int main ()
     
     cout<<"\nThe amount that you need to pay including tax(6%) is RM"<<amount;
     
-    paymentMethod(payMethod);
+    paymentMethod(payMethod, amount);
     
     cout << "\n\n\t\t   ====>THANK YOU<====\n";
   	cout << "\t\tItem Ordered Successfully ! \n\n";
@@ -316,13 +316,13 @@ void editOrder(Menu *cake, Menu *beverage, Menu *orderC, Menu *orderB, int &numC
 	
 }
 
-void paymentMethod(int payment) 
+void paymentMethod(int payment, double totalPrice) 
 {
 
 	int i=0, pin;
 	int cardNo[100];
 	double chargedMoney[100];
-	double tp, totalMoney=0;
+	double totalMoney=0;
 	
 	do{
 	
@@ -333,7 +333,7 @@ void paymentMethod(int payment)
   		//Cash payment option
   		if (payment == 1) 
 		{
-   			totalMoney += tp ;
+   			totalMoney += totalPrice ;
   		}
   	
  	 	///Credit/Debit Card Option
@@ -351,8 +351,8 @@ void paymentMethod(int payment)
 			cin >> pin;
 			fflush(stdin);
 
-			totalMoney += tp ;
-			chargedMoney[i] += tp;
+			totalMoney += totalPrice ;
+			chargedMoney[i] += totalPrice;
 
 		}
 	
