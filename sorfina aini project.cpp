@@ -95,7 +95,7 @@ void menuCafe (Menu *cake, Menu *beverage, ifstream &menuBeverage, ifstream &men
 		menuBeverage.close();
 }	
 // function to display welcome and menu list function
-void menuCafe (Menu *cake, Menu *beverage).      
+void menuCafe (Menu *cake, Menu *beverage)     
 {
 	cout << endl << "**********************************************************************" << endl;
   	cout << "\n\t\tWelcome to the Lass County Cafe! \t\n";
