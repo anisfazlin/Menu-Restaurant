@@ -3,6 +3,7 @@
 #include<fstream>
 #include<cstdlib>
 #include<string>
+#include<cctype>
 using namespace std;
 
 const int CAKE_ROWS=4;
@@ -129,10 +130,10 @@ void orderMenu (Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[],int &
 		cout<<"Do you want to order beverage? Y-yes N-no: "; 
 		cin>>answerB;
 	
-		if(answerB=='Y')
+		if(toupper(answerB) =='Y')
 		{
 		
-			for (int i=0;answerB=='Y';i++)
+			for (int i=0;toupper(answerB) =='Y';i++)
 			{
 				cout<<"Please select number of drinks:";
 				cin>>drinkNo;
@@ -145,7 +146,7 @@ void orderMenu (Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[],int &
 				cout<<"\nAdd another order for beverage? Y-yes N-no: ";
 				cin>>answerB;
 			
-				if(answerB=='N')
+				if(toupper(answerB) =='N')
 					answerB='A';
 						
 				numB++;
@@ -156,10 +157,10 @@ void orderMenu (Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[],int &
 			cout<<"Do you want to order cake? Y-yes N-no: ";
 			cin>>answerC;
 	
-		if(answerC=='Y')
+		if(toupper(answerC) =='Y')
 		{
 			
-			for (int i=0;answerC=='Y';i++)
+			for (int i=0;toupper(answerC) =='Y';i++)
 			{
 				cout<<"Please select number of cake:";
 				cin>>foodNo;
@@ -172,14 +173,14 @@ void orderMenu (Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[],int &
 				cout<<"\nAdd another order for cake? Y-yes N-no: ";
 				cin>>answerC;
 				
-				if(answerC=='N')
+				if(toupper(answerC) =='N')
 					answerC='A';
 				
 				numC++;
 			}
 		}
 
-		if(answerC=='N'&&answerB=='N')
+		if(toupper(answerC) =='N'&& toupper(answerB)=='N')
 		{
 			cout<<"Are comfirmed leave without leaving? (1- Yes 2- No): "; // if the customer choose 'N'-no for both option above, 
 			cin>>leave;						 // ask them again whether they want to continue or exit the program
