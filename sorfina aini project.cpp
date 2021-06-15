@@ -325,7 +325,7 @@ void paymentMethod(int payment, double totalPrice)
 {
 
 	int i=0, pin;
-	int cardNo[100];
+	int cardNo[50];
 	double chargedMoney[20];
 	double totalMoney=0;
 	
@@ -344,15 +344,14 @@ void paymentMethod(int payment, double totalPrice)
  	 	///debit//credit Card payment option
  	 	else if (payment == 2) 
 		{
- 	  	 	int card_number[100];
   	  		++i;
     
-			cout << "Enter Your Card No : ";
-			cin >> card_number[i];
+			cout << "Enter your card number : ";
+			cin >> cardNo[i];
 
 			cardNo[i] = card_number[i];
 
-			cout << "Enter Your Card Pin [we would never save your pin]  : ";
+			cout << "Enter your card pin [we would never save your pin]  : ";
 			cin >> pin;
 			fflush(stdin);
 
