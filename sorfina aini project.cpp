@@ -349,9 +349,7 @@ void paymentMethod(int payment, double totalPrice)
 			cout << "Enter your card number : ";
 			cin >> cardNo[i];
 
-			cardNo[i] = card_number[i];
-
-			cout << "Enter your card pin [we would never save your pin]  : ";
+			cout << "Enter your card pin [we will not save your pin]  : ";
 			cin >> pin;
 			fflush(stdin);
 
@@ -362,6 +360,8 @@ void paymentMethod(int payment, double totalPrice)
 	
 	}while(payment != 1 && payment != 2);
 }
+
+void additionalOrder()
 // function to calculate the price from customer's order
 double calcPrice(int numB,int numC, Menu *orderC, Menu *orderB)
 {
@@ -377,7 +377,6 @@ double calcPrice(int numB,int numC, Menu *orderC, Menu *orderB)
 		
 		totalPrice_excTax=(totalPriceBeverage+totalPriceCake)*TAX; // store price of tax
 		totalPrice=totalPriceBeverage+totalPriceCake+totalPrice_excTax; //store total price including tax
-	}
-	
+	}	
 	return totalPrice;
 }
