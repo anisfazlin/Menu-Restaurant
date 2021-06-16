@@ -25,9 +25,9 @@ struct Menu
 void menuCafe(Menu*, Menu*,ifstream& , ifstream&);			 // function to open file for menu
 void menuCafe (Menu *, Menu *);                                          // display welcome and list menu function
 void orderMenu(Menu [], Menu[], Menu [], Menu [], int&,int &);		 // function to order from list menu
-void displayOrder(int ,int, Menu*, Menu*,string[], string[], double [][COOKIESCOL],int , int , int );				 // function to display customer's order
+void displayOrder(int ,int, Menu*, Menu*,string[], string[], double [][COOKIESCOL],int , int , int );	// function to display customer's order
 void editOrder(Menu *, Menu*, Menu *, Menu*, int &, int &);              // function for customer that want to edit the order that they already decided
-void additionalOrder(string[], string[], double [][COOKIESCOL],int *, int *, int*);
+void additionalOrder(string[], string[], double [][COOKIESCOL],int *, int *, int*); //function for cusmtoer to adds-on their order with cookies
 void paymentMethod(int, double ) ;                                       // function to determine payment method for customer's order
 double calcPrice(int ,int ,Menu *, Menu *);                              // function to calculate the price from customer's order
 
@@ -425,7 +425,7 @@ void paymentMethod(int payment, double totalPrice)
 {
 
 	int i=0, pin;
-	int cardNo[100];
+	int cardNo[50];
 	double chargedMoney[20];
 	double totalMoney=0;
 	
@@ -446,10 +446,10 @@ void paymentMethod(int payment, double totalPrice)
 		{
   	  		++i;
     
-			cout << "Enter Your Card No : ";
+			cout << "Enter Your Card Number : ";
 			cin >> cardNo[i];
 
-			cout << "Enter Your Card Pin [we will never save your pin]  : ";
+			cout << "Enter your card pin [we will not save your pin]  : ";
 			cin >> pin;
 			fflush(stdin);
 
