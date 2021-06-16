@@ -1,5 +1,3 @@
-
-  
 #include<iostream>
 #include<iomanip>
 #include<fstream>
@@ -10,8 +8,6 @@ using namespace std;
 
 const int CAKE_ROWS=4;
 const int BEV_ROWS=8;
-const int COOKIESROW=4;
-const int COOKIESCOL=3;
 
 // declare global type to store different types of data
 struct Menu
@@ -25,9 +21,8 @@ struct Menu
 void menuCafe(Menu*, Menu*,ifstream& , ifstream&);			 // function to open file for menu
 void menuCafe (Menu *, Menu *);                                          // display welcome and list menu function
 void orderMenu(Menu [], Menu[], Menu [], Menu [], int&,int &);		 // function to order from list menu
-void displayOrder(int ,int, Menu*, Menu*,string[], string[], double [][COOKIESCOL],int , int , int );	// function to display customer's order
+void displayOrder(int ,int, Menu*, Menu* );				 // function to display customer's order
 void editOrder(Menu *, Menu*, Menu *, Menu*, int &, int &);              // function for customer that want to edit the order that they already decided
-void additionalOrder(string[], string[], double [][COOKIESCOL],int *, int *, int*); //function for cusmtoer to adds-on their order with cookies
 void paymentMethod(int, double ) ;                                       // function to determine payment method for customer's order
 double calcPrice(int ,int ,Menu *, Menu *);                              // function to calculate the price from customer's order
 
@@ -43,25 +38,17 @@ int main ()
 	ifstream menuCake, menuBeverage;  
 	
 	int numC=0,numB=0, payMethod;		//numB is order for beverage, 
-										//numC is the order for cake
-						
-	int answer=0, pkgCookies, qtyCookies;
-	
-	string flavour[] = {"Original","Chocolate Chips","Coffee","Almond"};
-	 string packageType[]={"12 pcs","24 pcs","50 pcs"};
-	 double pricesCookies[][COOKIESCOL]= {{2.5,5,12.5},{2.9,6,13.9},{2.7,4.6,12.9},{4.7,6.8,14.9}};
-	
+						//numC is the order for cake
 	menuCafe(cake,beverage,  menuBeverage, menuCake);
 	cout<<fixed<<showpoint<<setprecision(2);
 		
 	menuCafe (cake, beverage);
 	orderMenu(cake, beverage, orderCake, orderBeverage, numC, numB);
-	displayOrder(numB,numC,orderCake, orderBeverage,flavour,packageType, pricesCookies, answer,pkgCookies,qtyCookies);
+	displayOrder(numB,numC,orderCake, orderBeverage);
 	editOrder(cake, beverage, orderCake, orderBeverage, numC, numB);
-	additionalOrder(flavour,packageType, pricesCookies,&answer,&pkgCookies, &qtyCookies);
+
 	double amount = calcPrice(numB,numC, orderCake, orderBeverage);
-	
-    displayOrder(numB,numC,orderCake,orderBeverage,flavour,packageType, pricesCookies,answer,pkgCookies, qtyCookies);
+    displayOrder(numB,numC,orderCake,orderBeverage);
     
     cout<<"\nThe amount that you need to pay including tax(6%) is RM"<<amount;
     
@@ -146,67 +133,51 @@ void orderMenu (Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[],int &
 		if(toupper(answerB) =='Y')
 		{
 		
-			for (int i=0;toupper(answerB) =='Y'||drinkNo>8&&drinkNo<1;i++)
+			for (int i=0;toupper(answerB) =='Y';i++)
 			{
 				cout<<"Please select number of drinks:";
 				cin>>drinkNo;
-				
-
-				
-					if (drinkNo>=1&&drinkNo<=8)
-					{
-						cout<<"Quantity: ";
-						cin>>orderB[i].qty;
+				cout<<"Quantity: ";
+				cin>>orderB[i].qty;
 			
-						orderB[i].name=beverage[drinkNo-1].name;    //store the selected beverage's index to variable beverage's order
-						orderB[i].price=beverage[drinkNo-1].price;
+				orderB[i].name=beverage[drinkNo-1].name;    //store the selected beverage's index to variable beverage's order
+				orderB[i].price=beverage[drinkNo-1].price;
 			
-						cout<<"\nAdd another order for beverage? Y-yes N-no: ";
-						cin>>answerB;
+				cout<<"\nAdd another order for beverage? Y-yes N-no: ";
+				cin>>answerB;
 			
-							if(toupper(answerB) =='N')
-								answerB='A';
+				if(toupper(answerB) =='N')
+					answerB='A';
 						
-						numB++;
-					}
-				
-					else 
-						cout<<"\nSorry wrong choice. Please try again! ";
-		}
+				numB++;
+			}
 		}
 	
 			cout<<"\n\n\t->ORDER FOR CAKE<-"<<endl<<endl;
 			cout<<"Do you want to order cake? Y-yes N-no: ";
 			cin>>answerC;
 	
-			if(toupper(answerC) =='Y')
-			{
+		if(toupper(answerC) =='Y')
+		{
 			
-				for (int i=0;toupper(answerC) =='Y'|| foodNo>4&&foodNo<1;i++)
-				{
-					cout<<"Please select number of cake:";
-					cin>>foodNo;
-					
-						if(foodNo>=1&&foodNo<=4)
-						{
-							cout<<"Quantity: ";
-							cin>>orderC[i].qty;
-					
-							orderC[i].name=cake[foodNo-1].name; //store the selected cake's index to variable beverage's order
-							orderC[i].price=cake[foodNo-1].price;
+			for (int i=0;toupper(answerC) =='Y';i++)
+			{
+				cout<<"Please select number of cake:";
+				cin>>foodNo;
+				cout<<"Quantity: ";
+				cin>>orderC[i].qty;
+			
+				orderC[i].name=cake[foodNo-1].name; //store the selected cake's index to variable beverage's order
+				orderC[i].price=cake[foodNo-1].price;
 	
-							cout<<"\nAdd another order for cake? Y-yes N-no: ";
-							cin>>answerC;
-					
-							if(toupper(answerC) =='N')
-								answerC='A';
-					
-						numC++;
-					}
-					else 
-						cout<<"\nSorry wrong choice. Please try again! ";
-					
-				}
+				cout<<"\nAdd another order for cake? Y-yes N-no: ";
+				cin>>answerC;
+				
+				if(toupper(answerC) =='N')
+					answerC='A';
+				
+				numC++;
+			}
 		}
 
 		if(toupper(answerC) =='N'&& toupper(answerB)=='N')
@@ -224,11 +195,11 @@ void orderMenu (Menu cake[], Menu beverage[], Menu orderC[], Menu orderB[],int &
 	}while(leave==2&&answerB=='N'&&answerC=='N');
 }
 // function to display customer's order
-void displayOrder(int numB,int numC, Menu *orderC, Menu *orderB,string flavour[], string packageType[], double pricesCookies[][COOKIESCOL],int answer, int pkgCookies, int qtyCookies)
+void displayOrder(int numB,int numC, Menu *orderC, Menu *orderB)
 {
 	//display the list order that customer decide to buy
 	
-	cout<<"\nCOMFIRMATION OF ORDER : ";
+	cout<<"\nYOUR ORDER : ";
 	
 	if(numB!=0)
 	{
@@ -248,11 +219,6 @@ void displayOrder(int numB,int numC, Menu *orderC, Menu *orderB,string flavour[]
 			cout<<i+1<<". "<<(orderC +i)->name;
 			cout<<" x"<<(orderC +i)->qty<<" RM "<<(orderC +i)->price * (orderC +i)->qty<<endl;
 		}
-	}
-	if (answer!=0)
-	{
-		cout<<endl;
-		cout<<qtyCookies<<" pack(s) of "<<packageType[pkgCookies-1]<<" package of "<<flavour[answer-1]<<"."<<endl;
 	}
 }
 
@@ -354,78 +320,12 @@ void editOrder(Menu *cake, Menu *beverage, Menu *orderC, Menu *orderB, int &numC
 	}
 	
 }
-
-void additionalOrder(string flavour[], string packageType[], double pricesCookies[][COOKIESCOL],int *answer, int *pkgCookies, int*qtyCookies)
-{
-	cout<<"\n\tHere some new food in our cafe!\n\n";
-	cout<<left<<setw(21)<<"COOKIE'S FLAVOUR";
-	
-		for(int i=0;i<COOKIESCOL;i++)
-			cout<<setw(12)<<packageType[i];
-		cout<<endl<<endl;
-	
-		for(int i=0;i<COOKIESROW;i++)
-		{
-			cout<<i+1<<". "<<left<<setw(18)<<flavour[i];
-				for (int j=0;j<COOKIESCOL;j++)
-			{
-				cout<<"RM"<<setw(10)<<pricesCookies[i][j];
-			}
-			cout<<endl;
-		}
-		
-		
-	do{
-		cout<<"\nDo you want to add cookie? Please select the cookie, if not press 0 : ";
-		cin>>*answer;
-		
-		if (*answer==0)
-			break;
-		
-		else if (*answer<=4&&*answer>=1)
-		{
-			cout<<"Available package: ";
-			for(int i=0;i<3;i++)
-				cout<<i+1<<") "<<packageType[i];
-				
-			cout<<"\nChoose which package: ";
-			cin>>*pkgCookies;
-			cout<<"Enter quantity: ";
-			cin>>*qtyCookies;
-			
-			
-		}
-		
-	}while (*answer<0&&*answer>4);
-	
-}
-
-// function to calculate the price from customer's order
-double calcPrice(int numB,int numC, Menu *orderC, Menu *orderB)
-{
-	const double TAX=0.06;
-	double totalPrice_excTax=0;
-	double totalPrice,totalPriceBeverage=0,totalPriceCake=0;
-
-	for(int i=0;i<(numB+numC);i++)
-	{
-		
-		totalPriceBeverage+=((orderB +i)->price*(orderB +i)->qty);
-		totalPriceCake+=((orderC +i)->price*(orderC +i)->qty); 
-		
-		totalPrice_excTax=(totalPriceBeverage+totalPriceCake)*TAX; // store price of tax
-		totalPrice=totalPriceBeverage+totalPriceCake+totalPrice_excTax; //store total price including tax
-	}
-	
-	return totalPrice;
-}
-
 // function to determine payment method
 void paymentMethod(int payment, double totalPrice) 
 {
 
 	int i=0, pin;
-	int cardNo[50];
+	int cardNo[16];
 	double chargedMoney[20];
 	double totalMoney=0;
 	
@@ -444,9 +344,9 @@ void paymentMethod(int payment, double totalPrice)
  	 	///debit//credit Card payment option
  	 	else if (payment == 2) 
 		{
-  	  		++i;
+  			i++;
     
-			cout << "Enter Your Card Number : ";
+			cout << "Enter your card number : ";
 			cin >> cardNo[i];
 
 			cout << "Enter your card pin [we will not save your pin]  : ";
@@ -461,3 +361,21 @@ void paymentMethod(int payment, double totalPrice)
 	}while(payment != 1 && payment != 2);
 }
 
+// function to calculate the price from customer's order
+double calcPrice(int numB,int numC, Menu *orderC, Menu *orderB)
+{
+	const double TAX=0.06;
+	double totalPrice_excTax=0;
+	double totalPrice,totalPriceBeverage=0,totalPriceCake=0;
+
+	for(int i=0;i<(numB+numC);i++)
+	{
+		
+		totalPriceBeverage+=((orderB +i)->price*(orderB +i)->qty);
+		totalPriceCake+=((orderC +i)->price*(orderC +i)->qty); 
+		
+		totalPrice_excTax=(totalPriceBeverage+totalPriceCake)*TAX; // store price of tax
+		totalPrice=totalPriceBeverage+totalPriceCake+totalPrice_excTax; //store total price including tax
+	}	
+	return totalPrice;
+}
